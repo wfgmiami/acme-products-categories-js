@@ -1,0 +1,37 @@
+{% extends './layout.html' %}
+
+{% block content %}
+<h3> All Categories </h3>
+<form class='well' action = '/categories' method='POST'>
+  <div class = 'form-group'>
+  <input class = 'form-control' name = 'name' placeholder='add a category...'/>
+  </div>
+  <button class='btn btn-primary'><span class = 'glyphicon glyphicon-save'></span>Save</button>
+</form>
+
+<ul class = 'list-group'>
+  {% if numCats > 0 %}
+    {% for cat in cats %}
+    <li class = 'list-group-item'>
+      <a href = '/categories/{{ cat.id }}'>
+
+        {{ cat.name }}
+      </a>
+      <div class = 'pull-right'>
+      <form style = 'display: inline' action='/categories/{{ cat.id }}?_method=DELETE' method = 'POST'>
+        <button class = 'btn btn-warning'>
+          <span class='glyphicon glyphicon-trash'></span>
+          Delete
+        </button>
+      </form>
+      </div>
+      <br clear='all' />
+    </li>
+    {% endfor %}
+  {% endif %}
+</ul>
+{% endblock %}
+
+
+
+
