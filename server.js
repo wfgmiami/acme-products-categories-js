@@ -15,7 +15,13 @@ app.use('/vendors', express.static(__dirname + '/node_modules/'))
 app.use(methodOverride('_method'));
 
 app.get('/', (req, res, next)=>{
-  res.render('index', { nav: 'home', numCats:db.getCategories().length, cats: db.getCategories()})
+    var catsPre = JSON.stringify(db.getCategories(),null,2);
+  res.render('index', {
+    nav: 'home',
+    numCats:db.getCategories().length,
+    cats: db.getCategories(),
+    catsPre: catsPre
+    })
 });
 
 app.use('/categories', require('./routes/categories'));

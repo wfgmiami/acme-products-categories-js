@@ -4,19 +4,33 @@ const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded( { extended: false }));
 
+
+
 router.get('/', (req,res,next)=>{
   var len = db.getCategories().length;
   if (len !== 0){
     var id = db.getCategories()[len - 1].id;
   }
-  res.render('categories', {nav:'cats',numCats:len, id: id, cats: db.getCategories() });
+  var catsPre = JSON.stringify(db.getCategories(),null,2);
+  res.render('categories', {
+    nav:'cats',
+    numCats:len,
+    id: id,
+    cats: db.getCategories(),
+    catsPre: catsPre });
 })
 
 router.get('/:id', (req,res,next)=>{
   var id = req.params.id*1;
   var len = db.getCategories().length;
-  //console.log(db.getCategories(id));
-  res.render('category', { nav:'cats',numCats:len, id: id,cats: db.getCategories(), category: db.getCategory(id) });
+  var catsPre = JSON.stringify(db.getCategories(),null,2);
+  res.render('category',
+  { nav:'cats',
+    numCats:len,
+    id: id,
+    cats: db.getCategories(),
+    category: db.getCategory(id),
+    catsPre: catsPre });
 })
 
 router.post('/:id/products', (req, res, next)=>{
