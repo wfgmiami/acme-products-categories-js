@@ -4,18 +4,16 @@ const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded( { extended: false }));
 
-
-
 router.get('/', (req,res,next)=>{
   var len = db.getCategories().length;
   if (len !== 0){
-    var id = db.getCategories()[len - 1].id;
+    var id = db.getCategories()[len - 1].id;//confused as to why you need this
   }
   var catsPre = JSON.stringify(db.getCategories(),null,2);
   res.render('categories', {
     nav:'cats',
     numCats:len,
-    id: id,
+    id: id,//not sure you need this.
     cats: db.getCategories(),
     catsPre: catsPre });
 })
@@ -36,11 +34,11 @@ router.get('/:id', (req,res,next)=>{
 router.post('/:id/products', (req, res, next)=>{
   var id = req.params.id*1;
   db.insertProduct(req.body,id);
-  res.redirect('/categories/' + id);
+  res.redirect('/categories/' + id);//use back ticks.
 })
 
 router.post('/', (req,res,next)=>{
-  db.insertCategory(req.body);
+  db.insertCategory(req.body);//if you have this method return the category, you'll have the categorie id
   var len = db.getCategories().length;
   var id = db.getCategories()[len - 1].id;
   res.redirect('/categories/' + id);
