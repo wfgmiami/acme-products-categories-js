@@ -1,6 +1,9 @@
 const categories = [];
-
-module.exports.categories = categories;
+//you're better off doing module.exports = {
+//  categories,
+//  getCategories
+//};
+module.exports.categories = categories;//what is the purpose of exporting this? you already have getCategories
 
 module.exports.getCategories = function getCategories(){
   return categories;
@@ -40,6 +43,8 @@ module.exports.deleteCategory = (id)=>{
 }
 
 function nextId(index){
+  //having a hard time following this
+  //I don't think this needs to be so complex.. take a look at solution repo
   var catArray = [];
   if (arguments.length > 0){
 
@@ -47,7 +52,7 @@ function nextId(index){
       var catArray = categories[index].products;
     }
   }else{
-    var catArray = categories;
+    var catArray = categories;//isn't catArray defined?
   }
   var max = catArray.reduce((max, cat)=> {
     if (cat.id > max){
