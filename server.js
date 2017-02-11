@@ -19,7 +19,7 @@ app.get('/', (req, res, next)=>{
   res.render('index', {
     nav: 'home',
     numCats:db.getCategories().length,
-    cats: db.getCategories(),
+    cats: db.getCategories(),//do you need all the categories on the home page
     catsPre: catsPre
     })
 });
@@ -29,5 +29,5 @@ app.use('/categories', require('./routes/categories'));
 const port = process.env.PORT || 3000;
 
 app.listen(port, ()=>{
-  `Listening on port ${ port }`
+  console.log(`Listening on port ${ port }`);
 })
